@@ -1,0 +1,34 @@
+#container {
+	margin: 0 auto;
+}
+
+.card {
+	border-style: dotted;
+	border-color: gray;
+	width: 200px;
+	height: 100px	;
+	padding: 10px;
+	margin: 25px;
+	float: left;
+}
+
+.imgHolder {
+	text-align: center;
+}
+
+.card img {
+	display: inline-block;
+}
+
+.selected {
+	border-color: black;
+	border-style: solid;
+	/*box-shadow: 10px 10px 5px #888888;*/
+}
+
+.hidden {
+
+	display: none;
+}
+
+
