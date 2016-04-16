@@ -1,4 +1,22 @@
+//TO DO
+//
+//Enhancements: 
+//1. Add score/scorekeeping.
+//2. Add Timer
+//3. Style Buttons
+//4. Make is to new divs appears at the end
+//5. Find Set button
+//6. Cookie to keep track of user's score
+//7. See if there is a set onscreen when user clicks 'deal 3'
+//8. Add instructions page
+//9. Add fadein/out animations
+
+//Bugs:
+//1. Validate user has chosen 3 cards when check set button is clicked
+//2. Hide divs when allCards < 12	
+
 $(document).ready(function() {
+
 	var selected = document.getElementsByClassName("selected");
 	var shape = ['diamond', 'ellipse', 'sshape'];
 	var color = ['green', 'red', 'purple'];
@@ -15,26 +33,21 @@ $(document).ready(function() {
 	var cardDivsLength = cardDivs.length;
 	var dealtCards = [];
 
-
-	//Begin Interactions
-
-
 	//Allows user to select up to 3 cards
-	$(".card").click(function() {
+		$(".card").click(function() {
 
-		var selectedLength = selected.length;
+			var selectedLength = selected.length;
 
-		if (selectedLength <= 2) {
+			if (selectedLength <= 2) {
 
-			$(this).toggleClass("selected");	
+				$(this).toggleClass("selected");	
 
-		} else if (selectedLength = 3) {
+			} else if (selectedLength = 3) {
 
-			$(this).removeClass("selected");
-		}
-	});
+				$(this).removeClass("selected");
+			}
+		});
 
-	//End Interactions
 
 	//object constructor for cards
 	function card (number, shape, color, fill) {
@@ -55,11 +68,12 @@ $(document).ready(function() {
 
 		for (var i = 0; i < cardDivs.length; i++) {
 
-			if ((imgHolder[i].childElementCount === 0 ) && (cardDivs[i].className != "card hidden ")) {
+			if ((imgHolder[i].childElementCount === 0 ) && (cardDivs[i].className === "card show"))	 {
 
 				var randomNum = Math.floor(Math.random() * allCards.length);
 				shapeNumber = allCards[randomNum].number;
 
+					//Get number property from object and write matching image to card that number of times.
 					for (var j = 0; j <= shapeNumber - 1; j++) {
 
 						var cardImage = document.createElement("img");
@@ -68,8 +82,10 @@ $(document).ready(function() {
 						
 					}
 
-					allCards[randomNum].divId = i;
-					dealtCards.push(allCards[randomNum])
+					//Replace current object in dealt cards with new card from allCards
+					dealtCards.splice(i, 1, allCards[randomNum])
+
+					//Remove card now in dealtCards from allCards
 					allCards.splice(randomNum, 1);
 
 			}
@@ -98,47 +114,26 @@ $(document).ready(function() {
 			var imgHolder2 = document.getElementById(selectedCardId2).firstElementChild;
 			var imgHolder3 = document.getElementById(selectedCardId3).firstElementChild;
 
-			$(cardDivs[selectedCardId1]).addClass("hidden")
-			$(cardDivs[selectedCardId2]).addClass("hidden")
-			$(cardDivs[selectedCardId3]).addClass("hidden")
-
 			$(".selected").removeClass("selected");
-
-			var removeSelectedId = function (divId) {
-
-				for (var i = 0; i < dealtCards.length; i++) {
-
-					console.log(dealtCards[i])
-					console.log(divId)
-					
-					if (dealtCards[i].divId == divId) {
-
-						alert('yo')
-
-						dealtCards.splice(i, 1);
-
-					}
-				}
-
-			}
-
-			removeSelectedId(selectedCardId1);
-			removeSelectedId(selectedCardId2);
-			removeSelectedId(selectedCardId3);
 
 			$(imgHolder1).empty();
 			$(imgHolder2).empty();
 			$(imgHolder3).empty();
 
-			if (dealtCards.length === 9 ) {
+			var showLength = document.getElementsByClassName("show").length;
 
-				dealCards(3);
+			console.log(showLength)
 
-				$(cardDivs[selectedCardId1]).removeClass("hidden");
-				$(cardDivs[selectedCardId2]).removeClass("hidden");
-				$(cardDivs[selectedCardId3]).removeClass("hidden");
+			if (showLength <= 12) {
 
-			} 
+				dealCards();
+
+			} else {
+
+				$(cardDivs[selectedCardId1]).addClass("hidden").removeClass("show");
+				$(cardDivs[selectedCardId2]).addClass("hidden").removeClass("show");
+				$(cardDivs[selectedCardId3]).addClass("hidden").removeClass("show");
+			}
 
 		} else {
 
@@ -208,7 +203,7 @@ $(document).ready(function() {
 		}
 	}
 
-	dealCards(12);
+	dealCards();	
 	
 	$("button[name='checkSet']").click(function() {
 
@@ -218,9 +213,9 @@ $(document).ready(function() {
 
 	$("button[name='deal3']").click(function() {
 
-		$(".hidden").removeClass("hidden");
+	  $(".hidden").removeClass("hidden").addClass("show");
 
-		dealCards(3);
+		dealCards();
 
 	});
 
