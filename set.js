@@ -33,20 +33,20 @@ $(document).ready(function() {
 	var cardDivsLength = cardDivs.length;
 	var dealtCards = [];
 
-	//Allows user to select up to 3 cards
-		$(".card").click(function() {
+//Allows user to select up to 3 cards
+	$(".card").click(function() {
 
-			var selectedLength = selected.length;
+		var selectedLength = selected.length;
 
-			if (selectedLength <= 2) {
+		if (selectedLength <= 2) {
 
-				$(this).toggleClass("selected");	
+			$(this).toggleClass("selected");	
 
-			} else if (selectedLength = 3) {
+		} else if (selectedLength = 3) {
 
-				$(this).removeClass("selected");
-			}
-		});
+			$(this).removeClass("selected");
+		}
+	});
 
 
 	//object constructor for cards
@@ -101,12 +101,10 @@ $(document).ready(function() {
 		var selectedCardId1 = selectedCard[0].getAttribute("id");
 		var selectedCardId2 = selectedCard[1].getAttribute("id");
 		var selectedCardId3 = selectedCard[2].getAttribute("id");
-		var shapeComp = compareCards("shape");
-		var numberComp = compareCards("number");
-		var colorComp = compareCards("color");
-		var fillComp = compareCards("fill");
+		
+		var set = compareCards(selectedCardId1,selectedCardId2,selectedCardId3);
 
-		if (shapeComp && numberComp && colorComp && fillComp) {
+		if (set) {
 
 			alert("set");
 
@@ -140,46 +138,45 @@ $(document).ready(function() {
 			alert("not a set");
 
 			$(".selected").removeClass("selected");
+		}	
 
+	}
 
-		}
-		
+	function compareCards(index1,index2,index3) {
 
-		function compareCards(type) {
+		var typeProp = ["shape", "number", "color", "fill"];
+		var i = 0;
+		var typePropLength = typeProp.length;
 
-			var typeVal1 = dealtCards[selectedCardId1][type];
-			var typeVal2 = dealtCards[selectedCardId2][type];
-			var typeVal3 = dealtCards[selectedCardId3][type];
+		for (var i = 0; i < typePropLength;) {
 
 			if (
 					(
-						(typeVal1 === typeVal2) 
+						(dealtCards[index1][typeProp[i]] === dealtCards[index2][typeProp[i]])
 						&&
-						(typeVal2 === typeVal3)
-
+						(dealtCards[index2][typeProp[i]] === dealtCards[index3][typeProp[i]])
 					)
-
-				||
-
+					||
 					(
-						(typeVal1 != typeVal2)
+						(dealtCards[index1][typeProp[i]] != dealtCards[index2][typeProp[i]])
+						&&		
+						(dealtCards[index2][typeProp[i]] != dealtCards[index3][typeProp[i]])
 						&&
-						(typeVal2 != typeVal3)
-						&&
-						(typeVal1 != typeVal3)
-
+						(dealtCards[index1][typeProp[i]] != dealtCards[index3][typeProp[i]])
 					)
 				) 
-			{
+				{
+				
+					i++;
 
-				return true;
+				} else {
 
-			} else {
-
-				return false;
+					return false;
+				}
 
 			}
-		}
+
+		return true;
 	}
 
 
@@ -196,7 +193,6 @@ $(document).ready(function() {
 
 						allCards[i] = new card (number[numberIndex], shape[shapeIndex], color[colorIndex], fill[fillIndex]);
 						i++;
-
 					}
 				}
 			}
@@ -212,6 +208,33 @@ $(document).ready(function() {
 	});
 
 	$("button[name='deal3']").click(function() {
+
+		var dealtCardsLength = dealtCards.length;
+
+		for (var i = 0; i < dealtCardsLength;) {
+
+			for (var j = i+1; j < dealtCardsLength;) {
+
+				for (var k = j+1; k < dealtCardsLength;) {
+
+					var set = compareCards(i,j,k);
+					console.log(i,j,k)
+
+
+					if (set) {
+
+						alert ("There is a set on the board.")
+						return;
+					}
+
+					k++;
+				}
+
+				j++;
+			}
+
+			i++;
+		}
 
 	  $(".hidden").removeClass("hidden").addClass("show");
 
