@@ -7,13 +7,16 @@
 //4. Make is to new divs appears at the end
 //5. Find Set button
 //6. Cookie to keep track of user's score
-//7. See if there is a set onscreen when user clicks 'deal 3'
+//X7. See if there is a set onscreen when user clicks 'deal 3'
 //8. Add instructions page
-//9. Add fadein/out animations
+//9. Add animations
+//X10. Refactor div tracking to object.
+//11. Write Tutorial.
 
 //Bugs:
 //1. Validate user has chosen 3 cards when check set button is clicked
 //2. Hide divs when allCards < 12	
+//X3. Deal cards is including hidden divs when checking for set on the board.
 
 $(document).ready(function() {
 
@@ -82,8 +85,11 @@ $(document).ready(function() {
 						
 					}
 
-					//Replace current object in dealt cards with new card from allCards
-					dealtCards.splice(i, 1, allCards[randomNum])
+					//Update card property with div into which it was dealt
+					allCards[randomNum].divId = i;
+
+					//Add dealt card to dealtCards array
+					dealtCards.push(allCards[randomNum]);
 
 					//Remove card now in dealtCards from allCards
 					allCards.splice(randomNum, 1);
@@ -101,8 +107,27 @@ $(document).ready(function() {
 		var selectedCardId1 = selectedCard[0].getAttribute("id");
 		var selectedCardId2 = selectedCard[1].getAttribute("id");
 		var selectedCardId3 = selectedCard[2].getAttribute("id");
+		var card1;
+		var card2;
+		var card3;
+
+		for (var i = 0; i < dealtCards.length; i++) {
+
+			if (dealtCards[i].divId === parseInt(selectedCardId1)) {
+				
+				var card1 = i;
+
+			} else if (dealtCards[i].divId === parseInt(selectedCardId2)) {
+
+				var card2 = i;
+			} else if (dealtCards[i].divId === parseInt(selectedCardId3)) {
+
+				var card3 = i;
+			} 
+					
+		}
 		
-		var set = compareCards(selectedCardId1,selectedCardId2,selectedCardId3);
+		var set = compareCards(card1,card2,card3);
 
 		if (set) {
 
@@ -118,9 +143,25 @@ $(document).ready(function() {
 			$(imgHolder2).empty();
 			$(imgHolder3).empty();
 
-			var showLength = document.getElementsByClassName("show").length;
+			for (var i = dealtCards.length-1; i >= 0; i--) {
 
-			console.log(showLength)
+				if (dealtCards[i].divId === parseInt(selectedCardId1)) {  
+
+					dealtCards.splice(i, 1)
+
+				} else if (dealtCards[i].divId === parseInt(selectedCardId2)) {
+
+					dealtCards.splice(i, 1)
+
+				} else if (dealtCards[i].divId === parseInt(selectedCardId3)) {
+
+					dealtCards.splice(i, 1)
+
+				}
+
+			}
+
+			var showLength = document.getElementsByClassName("show").length;
 
 			if (showLength <= 12) {
 
@@ -141,6 +182,7 @@ $(document).ready(function() {
 		}	
 
 	}
+
 
 	function compareCards(index1,index2,index3) {
 
@@ -165,18 +207,18 @@ $(document).ready(function() {
 						(dealtCards[index1][typeProp[i]] != dealtCards[index3][typeProp[i]])
 					)
 				) 
-				{
+			{
 				
-					i++;
+				i++;
 
-				} else {
+			} else {
 
-					return false;
-				}
-
+				return false;
 			}
-
+		}
+	
 		return true;
+
 	}
 
 
@@ -211,35 +253,31 @@ $(document).ready(function() {
 
 		var dealtCardsLength = dealtCards.length;
 
-		for (var i = 0; i < dealtCardsLength;) {
+		//check to see if there is a set on the board before dealing more cards
+		for (var i = 0; i < dealtCardsLength;i++) {
 
-			for (var j = i+1; j < dealtCardsLength;) {
+			for (var j = i+1; j < dealtCardsLength;j++) {
 
-				for (var k = j+1; k < dealtCardsLength;) {
+				for (var k = j+1; k < dealtCardsLength;k++) {
 
 					var set = compareCards(i,j,k);
-					console.log(i,j,k)
-
 
 					if (set) {
 
 						alert ("There is a set on the board.")
+						console.log(dealtCards[i].divId, dealtCards[j].divId, dealtCards[k].divId)
 						return;
 					}
 
-					k++;
 				}
 
-				j++;
 			}
 
-			i++;
 		}
 
 	  $(".hidden").removeClass("hidden").addClass("show");
 
 		dealCards();
-
 	});
 
 
