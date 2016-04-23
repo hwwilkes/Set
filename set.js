@@ -104,6 +104,14 @@ $(document).ready(function() {
 	function checkSet() {
 
 		var selectedCard = document.getElementsByClassName("selected");
+		var selectedCardLength = selectedCard.length;
+
+		if (selectedCardLength != 3) {
+
+			alert ("Please choose 3 cards.")
+			return;
+		}
+
 		var selectedCardId1 = selectedCard[0].getAttribute("id");
 		var selectedCardId2 = selectedCard[1].getAttribute("id");
 		var selectedCardId3 = selectedCard[2].getAttribute("id");
@@ -120,6 +128,7 @@ $(document).ready(function() {
 			} else if (dealtCards[i].divId === parseInt(selectedCardId2)) {
 
 				var card2 = i;
+
 			} else if (dealtCards[i].divId === parseInt(selectedCardId3)) {
 
 				var card3 = i;
