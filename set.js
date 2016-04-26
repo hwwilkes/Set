@@ -7,16 +7,12 @@
 //4. Make is to new divs appears at the end
 //5. Find Set button
 //6. Cookie to keep track of user's score
-//X7. See if there is a set onscreen when user clicks 'deal 3'
 //8. Add instructions page
 //9. Add animations
-//X10. Refactor div tracking to object.
 //11. Write Tutorial.
 
 //Bugs:
-//1. Validate user has chosen 3 cards when check set button is clicked
 //2. Hide divs when allCards < 12	
-//X3. Deal cards is including hidden divs when checking for set on the board.
 
 $(document).ready(function() {
 
@@ -35,6 +31,7 @@ $(document).ready(function() {
 	var cardDivs = document.getElementsByClassName("card");
 	var cardDivsLength = cardDivs.length;
 	var dealtCards = [];
+	var score = 0;
 
 //Allows user to select up to 3 cards
 	$(".card").click(function() {
@@ -66,7 +63,7 @@ $(document).ready(function() {
 
 	}
 
-	//Picks a card object at random from allCards (deck) and writes images to card.
+	//Picks a card object at random from allCards (deck) and writes images to card where card div is empty.
 	function dealCards() {
 
 		for (var i = 0; i < cardDivs.length; i++) {
@@ -76,7 +73,7 @@ $(document).ready(function() {
 				var randomNum = Math.floor(Math.random() * allCards.length);
 				shapeNumber = allCards[randomNum].number;
 
-					//Get number property from object and write matching image to card that number of times.
+					//Get number property from card and write matching image to card that number of times.
 					for (var j = 0; j <= shapeNumber - 1; j++) {
 
 						var cardImage = document.createElement("img");
@@ -85,7 +82,7 @@ $(document).ready(function() {
 						
 					}
 
-					//Update card property with div into which it was dealt
+					//Update divId card property with div into which it was dealt
 					allCards[randomNum].divId = i;
 
 					//Add dealt card to dealtCards array
@@ -100,7 +97,7 @@ $(document).ready(function() {
 
 	}
 
-	//compares each attribute of selected cards
+	//compares each attribute of selected cards to see if it is a set.
 	function checkSet() {
 
 		var selectedCard = document.getElementsByClassName("selected");
@@ -138,6 +135,7 @@ $(document).ready(function() {
 		
 		var set = compareCards(card1,card2,card3);
 
+
 		if (set) {
 
 			alert("set");
@@ -170,6 +168,8 @@ $(document).ready(function() {
 
 			}
 
+
+
 			var showLength = document.getElementsByClassName("show").length;
 
 			if (showLength <= 12) {
@@ -189,6 +189,8 @@ $(document).ready(function() {
 
 			$(".selected").removeClass("selected");
 		}	
+
+		calcScore(set);
 
 	}
 
@@ -227,6 +229,22 @@ $(document).ready(function() {
 		}
 	
 		return true;
+
+	}
+
+	function calcScore(set) {
+
+		if (set) {
+
+			score++;
+
+		} else if (!set) {
+
+			score--;
+
+		}
+
+		document.getElementById("scoreNum").innerHTML = score;
 
 	}
 
