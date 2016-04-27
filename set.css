@@ -6,8 +6,8 @@
 
 
 .card {
-	border-style: dotted;
-	border-color: gray;
+	border-style: solid;
+	border-color: black;
 	width: 200px;
 	height: 100px	;
 	padding: 10px;
@@ -24,7 +24,7 @@
 }
 
 .selected {
-	border-color: black;
+	border-color: red;
 	border-style: solid;
 	/*box-shadow: 10px 10px 5px #888888;*/
 }
