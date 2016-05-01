@@ -32,8 +32,9 @@ $(document).ready(function() {
 	var cardDivsLength = cardDivs.length;
 	var dealtCards = [];
 	var score = 0;
+	var time = 600;
 
-//Allows user to select up to 3 cards
+	//Allows user to select up to 3 cards
 	$(".card").click(function() {
 
 		var selectedLength = selected.length;
@@ -249,6 +250,33 @@ $(document).ready(function() {
 	}
 
 
+	function timer() {
+
+		time--;
+
+		minutes = Math.floor(time/60);
+		seconds = time % 60;
+		timeStr = minutes + ":" + seconds;
+
+		document.getElementById("timer").innerHTML = timeStr;
+
+		if (time === 0) {
+
+			clearInterval(timerInt);
+			alert("Time's up!");
+
+		}
+
+	}
+
+	var minutes = Math.floor(time/60);
+	var seconds = time % 60;
+	var timeStr = minutes + ":" + seconds;
+
+	document.getElementById("timer").innerHTML = timeStr;
+
+	var timerInt = setInterval(timer, 1000);
+		
 	//create all cards, one for each unique combination of shape, color, number and fill. 
 	for (var i = 0; i < 81;) {
 
