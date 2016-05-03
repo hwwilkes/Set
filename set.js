@@ -1,15 +1,13 @@
 //TO DO
 //
 //Enhancements: 
-//1. Add score/scorekeeping.
-//2. Add Timer
+
 //3. Style Buttons
 //4. Make is to new divs appears at the end
 //5. Find Set button
 //6. Cookie to keep track of user's score
 //8. Add instructions page
 //9. Add animations
-//11. Write Tutorial.
 
 //Bugs:
 //2. Hide divs when allCards < 12	
@@ -33,6 +31,9 @@ $(document).ready(function() {
 	var dealtCards = [];
 	var score = 0;
 	var time = 600;
+	var minutes;
+	var seconds;
+	var timeStr;
 
 	//Allows user to select up to 3 cards
 	$(".card").click(function() {
@@ -250,9 +251,7 @@ $(document).ready(function() {
 	}
 
 
-	function timer() {
-
-		time--;
+	function updateTimer () {
 
 		minutes = Math.floor(time/60);
 		seconds = time % 60;
@@ -260,20 +259,34 @@ $(document).ready(function() {
 
 		document.getElementById("timer").innerHTML = timeStr;
 
+	}
+	
+
+	function timer() {
+
+		time--;
+
+		updateTimer();
+
+		//When time runs out, remove existing card selections and disable buttons. 
 		if (time === 0) {
 
 			clearInterval(timerInt);
 			alert("Time's up!");
+			
+			document.getElementsByName("checkSet")[0].disabled = true;
+			document.getElementsByName("deal3")[0].disabled = true;
+			$(".card").removeClass("selected");
+
+			$(".card").click(function() {
+				$(this).removeClass("selected");
+			});
 
 		}
 
 	}
-
-	var minutes = Math.floor(time/60);
-	var seconds = time % 60;
-	var timeStr = minutes + ":" + seconds;
-
-	document.getElementById("timer").innerHTML = timeStr;
+	
+	updateTimer();
 
 	var timerInt = setInterval(timer, 1000);
 		
@@ -322,6 +335,7 @@ $(document).ready(function() {
 						alert ("There is a set on the board.")
 						console.log(dealtCards[i].divId, dealtCards[j].divId, dealtCards[k].divId)
 						return;
+						
 					}
 
 				}

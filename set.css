@@ -7,7 +7,6 @@
 #container {
 	margin: 0 auto;
 	width: 1000px;
-	float: left;
 }
 
 /*#cardContainer {
@@ -45,13 +44,10 @@
 	display: none;
 }
 
-/*#score {
-	width: 200px;
-	height: 150px;
-	background-color: #c9d1d3;
-	padding: 10px;
-/*	float: right;*/
-}*/
+#score {
+	padding-top: 3px;
+}
+
 
 #score p {
 	margin-top: 0px;
@@ -61,9 +57,4 @@
 #score h3 {
 	margin-bottom: 5px;
 	padding: 0px;
-	margin-top: 0px;
 }
-
-/*#buttonContainer {
-	float: right;
-}*/
