@@ -261,44 +261,44 @@ $(document).ready(function() {
 	}
 
 
-	// function updateTimer () {
+	function updateTimer () {
 
-	// 	minutes = Math.floor(time/60);
-	// 	seconds = time % 60;
-	// 	timeStr = minutes + ":" + seconds;
+		minutes = Math.floor(time/60);
+		seconds = time % 60;
+		timeStr = minutes + ":" + seconds;
 
-	// 	document.getElementById("timer").innerHTML = timeStr;
+		document.getElementById("timer").innerHTML = timeStr;
 
-	// }
+	}
 	
 
-	// function timer() {
+	function timer() {
 
-	// 	time--;
+		time--;
 
-	// 	updateTimer();
+		updateTimer();
 
-	// 	//When time runs out, remove existing card selections and disable buttons. 
-	// 	if (time === 0) {
+		//When time runs out, remove existing card selections and disable buttons. 
+		if (time === 0) {
 
-	// 		clearInterval(timerInt);
-	// 		alert("Time's up!");
+			clearInterval(timerInt);
+			alert("Time's up!");
 			
-	// 		document.getElementsByName("checkSet")[0].disabled = true;
-	// 		document.getElementsByName("deal3")[0].disabled = true;
-	// 		$(".card").removeClass("selected");
+			document.getElementsByName("checkSet")[0].disabled = true;
+			document.getElementsByName("deal3")[0].disabled = true;
+			$(".card").removeClass("selected");
 
-	// 		$(".card").click(function() {
-	// 			$(this).removeClass("selected");
-	// 		});
+			$(".card").click(function() {
+				$(this).removeClass("selected");
+			});
 
-	// 	}
+		}
 
-	// }
+	}
 	
-	// updateTimer();
+	updateTimer();
 
-	// var timerInt = setInterval(timer, 1000);
+	var timerInt = setInterval(timer, 1000);
 		
 	//create all cards, one for each unique combination of shape, color, number and fill. 
 	for (var i = 0; i < 81;) {
