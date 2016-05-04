@@ -20,6 +20,7 @@ $(document).ready(function() {
 	var fill = ['empty', 'striped', 'solid'];
 	var number = [1, 2, 3];
 	var allCards = [];
+	var allCardsLength;
 	var shapeLength = shape.length;
 	var colorLength = color.length;
 	var fillLength = fill.length;
@@ -173,8 +174,9 @@ $(document).ready(function() {
 
 
 			var showLength = document.getElementsByClassName("show").length;
+			var allCardsLength = allCards.length;
 
-			if (showLength <= 12) {
+			if (showLength <= 12 && allCardsLength > 0) {
 
 				dealCards();
 
@@ -183,7 +185,15 @@ $(document).ready(function() {
 				$(cardDivs[selectedCardId1]).addClass("hidden").removeClass("show");
 				$(cardDivs[selectedCardId2]).addClass("hidden").removeClass("show");
 				$(cardDivs[selectedCardId3]).addClass("hidden").removeClass("show");
+
+			} 
+
+			if (allCardsLength === 0) {
+
+				document.getElementsByName("deal3")[0].disabled = true;
+
 			}
+
 
 		} else {
 
@@ -251,44 +261,44 @@ $(document).ready(function() {
 	}
 
 
-	function updateTimer () {
+	// function updateTimer () {
 
-		minutes = Math.floor(time/60);
-		seconds = time % 60;
-		timeStr = minutes + ":" + seconds;
+	// 	minutes = Math.floor(time/60);
+	// 	seconds = time % 60;
+	// 	timeStr = minutes + ":" + seconds;
 
-		document.getElementById("timer").innerHTML = timeStr;
+	// 	document.getElementById("timer").innerHTML = timeStr;
 
-	}
+	// }
 	
 
-	function timer() {
+	// function timer() {
 
-		time--;
+	// 	time--;
 
-		updateTimer();
+	// 	updateTimer();
 
-		//When time runs out, remove existing card selections and disable buttons. 
-		if (time === 0) {
+	// 	//When time runs out, remove existing card selections and disable buttons. 
+	// 	if (time === 0) {
 
-			clearInterval(timerInt);
-			alert("Time's up!");
+	// 		clearInterval(timerInt);
+	// 		alert("Time's up!");
 			
-			document.getElementsByName("checkSet")[0].disabled = true;
-			document.getElementsByName("deal3")[0].disabled = true;
-			$(".card").removeClass("selected");
+	// 		document.getElementsByName("checkSet")[0].disabled = true;
+	// 		document.getElementsByName("deal3")[0].disabled = true;
+	// 		$(".card").removeClass("selected");
 
-			$(".card").click(function() {
-				$(this).removeClass("selected");
-			});
+	// 		$(".card").click(function() {
+	// 			$(this).removeClass("selected");
+	// 		});
 
-		}
+	// 	}
 
-	}
+	// }
 	
-	updateTimer();
+	// updateTimer();
 
-	var timerInt = setInterval(timer, 1000);
+	// var timerInt = setInterval(timer, 1000);
 		
 	//create all cards, one for each unique combination of shape, color, number and fill. 
 	for (var i = 0; i < 81;) {
@@ -316,6 +326,8 @@ $(document).ready(function() {
 		checkSet();
 
 	});
+
+
 
 	$("button[name='deal3']").click(function() {
 
