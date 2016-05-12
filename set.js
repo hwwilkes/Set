@@ -35,6 +35,8 @@ $(document).ready(function() {
 	var minutes;
 	var seconds;
 	var timeStr;
+	var timerInt;
+	var timerStart = 'n';
 
 	//Allows user to select up to 3 cards
 	$(".card").click(function() {
@@ -274,6 +276,8 @@ $(document).ready(function() {
 
 	function timer() {
 
+		timerStart = 'y';
+
 		time--;
 
 		updateTimer();
@@ -298,7 +302,6 @@ $(document).ready(function() {
 	
 	updateTimer();
 
-	var timerInt = setInterval(timer, 1000);
 		
 	//create all cards, one for each unique combination of shape, color, number and fill. 
 	for (var i = 0; i < 81;) {
@@ -319,7 +322,7 @@ $(document).ready(function() {
 		}
 	}
 
-	dealCards();	
+	// dealCards();	
 	
 	$("button[name='checkSet']").click(function() {
 
@@ -328,8 +331,14 @@ $(document).ready(function() {
 	});
 
 
+	$("button[name='dealCards']").click(function() {
 
-	$("button[name='deal3']").click(function() {
+		//If timer hasn't started yet, start timer
+		if (timerStart === 'n') {
+
+			setInterval(timer, 1000);
+
+		};
 
 		var dealtCardsLength = dealtCards.length;
 
@@ -356,9 +365,17 @@ $(document).ready(function() {
 
 		}
 
-	  $(".hidden").removeClass("hidden").addClass("show");
+
+		//Only do this if cards have been previously dealt
+	  	if (dealtCards.length != 0) {
+
+	  		$(".hidden").removeClass("hidden").addClass("show");
+
+		}
 
 		dealCards();
+
+
 	});
 
 
