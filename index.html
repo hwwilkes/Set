@@ -1,7 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <!--  bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 	<link rel= "stylesheet" type= "text/css" href="set.css">
+
+	<!-- sweet alert -->
+	<script src="sweetalert-master/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<script src = "set.js"></script>
@@ -9,106 +20,106 @@
 
 <body>
 
-	<div id = "container">
+	<div id = "myContainer">
+
 		<div id = "cardContainer">
 			<div class="card show" id = "0">
-				<div class = 'imgHolder'>
-				</div>
+				<div class = 'imgHolder'></div>
 				<p>0</p>
 			</div>
+		</div>
 			
-			<div class = "card show" id = "1">
-				<div class = "imgHolder">
-				</div>
-				<p>1</p>
+		<div class = "card show" id = "1">
+			<div class = "imgHolder">
 			</div>
+			<p>1</p>
+		</div>
 			
-			<div class = "card show" id = "2">
-				<div class = "imgHolder">
-				</div>
-				<p>2</p>
+		<div class = "card show" id = "2">
+			<div class = "imgHolder">
 			</div>
-
-			<div class = "card show" id = "3">
-				<div class = "imgHolder">
-				</div>
-				<p>3</p>
-			</div>
-			<div class = "card show" id = "4">
-				<div class = "imgHolder">
-				</div>
-				<p>4</p>
-			</div>
-			<div class = "card show" id = "5">
-				<div class = "imgHolder">
-				</div>
-				<p>5</p>
-			</div>
-			<div class = "card show" id = "6">
-				<div class = "imgHolder">
-				</div>
-				<p>6</p>
-			</div>
-			<div class = "card show" id = "7">
-				<div class = "imgHolder">
-				</div>
-				<p>7</p>
-			</div>
-			<div class = "card show" id = "8">
-				<div class = "imgHolder">
-				</div>
-				<p>8</p>
-			</div>				
-			<div class = "card show" id = "9">
-				<div class = "imgHolder">
-				</div>
-				<p>9</p>
-			</div>
-			<div class = "card show" id = "10">
-				<div class = "imgHolder">
-				</div>
-				<p>10</p>
-			</div>
-			<div class = "card show" id = "11">
-				<div class = "imgHolder">
-				</div>
-				<p>11</p>
-			</div>
-			<div class = "card hidden" id = "12">
-				<div class = "imgHolder">
-				</div>
-				<p>12</p>
-			</div>
-			<div class = "card hidden" id = "13">
-				<div class = "imgHolder">
-				</div>
-				<p>13</p>
-			</div>
-			<div class = "card hidden" id = "14">
-				<div class = "imgHolder">
-				</div>
-				<p>14</p>
-			</div>
-
+			<p>2</p>
 		</div>
 
-		<div id = "score">
-			<h3>Timer</h3>
-			<p id = "timer"></p>
-			<h3>Score</h3>
-			<p id = "scoreNum">0</p>
+		<div class = "card show" id = "3">
+			<div class = "imgHolder">
+			</div>
+			<p>3</p>
 		</div>
 
-<!-- 		<div id = "buttonContainer"> -->
-			<button type ="button" name="checkSet">Check Set</button>
-			<button type="button" name="dealCards">Deal Cards</button>
-<!-- 		</div> -->
+		<div class = "card show" id = "4">
+			<div class = "imgHolder">
+			</div>
+			<p>4</p>
+		</div>
+		<div class = "card show" id = "5">
+			<div class = "imgHolder">
+			</div>
+			<p>5</p>
+		</div>
+		<div class = "card show" id = "6">
+			<div class = "imgHolder">
+			</div>
+			<p>6</p>
+		</div>
+		<div class = "card show" id = "7">
+			<div class = "imgHolder">
+			</div>
+			<p>7</p>
+		</div>
+		<div class = "card show" id = "8">
+			<div class = "imgHolder">
+			</div>
+			<p>8</p>
+		</div>				
+		<div class = "card show" id = "9">
+			<div class = "imgHolder">
+			</div>
+			<p>9</p>
+		</div>
+		<div class = "card show" id = "10">
+			<div class = "imgHolder">
+			</div>
+			<p>10</p>
+		</div>
+		<div class = "card show" id = "11">
+			<div class = "imgHolder">
+			</div>
+			<p>11</p>
+		</div>
+		<div class = "card hidden" id = "12">
+			<div class = "imgHolder">
+			</div>
+			<p>12</p>
+		</div>
+		<div class = "card hidden" id = "13">
+			<div class = "imgHolder">
+			</div>
+			<p>13</p>
+		</div>
+		<div class = "card hidden" id = "14">
+			<div class = "imgHolder">
+			</div>
+			<p>14</p>
+		</div>
 
 	</div>
 
+	<div id = "score">
+		<h3>Timer</h3>
+		<p id = "timer"></p>
+		<h3>Score</h3>
+		<p id = "scoreNum">0</p>
+		<h3>Sets on Board</h3>
+		<p id = "setNum">0</p>
+	</div>
 
+<!-- 		<div id = "buttonContainer"> -->
+	<button type ="button" class="btn" name="checkSet">Check Set</button>
+	<button type="button" class="btn" name="dealCards">Deal Cards</button>
+<!-- 		</div> -->
 
-
+</div>
 	
 
 </body>

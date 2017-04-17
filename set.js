@@ -2,15 +2,17 @@
 //
 //Enhancements: 
 
-//3. Style Buttons
 //4. Make is to new divs appears at the end
 //5. Find Set button
 //6. Cookie to keep track of user's score
 //8. Add instructions page
 //9. Add animations
+//10. Add Sets on board
 
 //Bugs:
 //2. Hide divs when allCards < 12	
+//3. Timer goes to negative when at 0
+//4. timer show 4 numbers 
 
 $(document).ready(function() {
 
@@ -110,7 +112,7 @@ $(document).ready(function() {
 
 		if (selectedCardLength != 3) {
 
-			alert ("Please choose 3 cards.")
+			swal ("Please choose 3 cards.")
 			return;
 		}
 
@@ -143,7 +145,7 @@ $(document).ready(function() {
 
 		if (set) {
 
-			alert("set");
+			swal("You found a set!", "", "success");
 
 			var imgHolder1 = document.getElementById(selectedCardId1).firstElementChild;
 			var imgHolder2 = document.getElementById(selectedCardId2).firstElementChild;
@@ -199,7 +201,7 @@ $(document).ready(function() {
 
 		} else {
 
-			alert("not a set");
+			swal("This is not a set", "", "error");
 
 			$(".selected").removeClass("selected");
 		}	
@@ -286,7 +288,7 @@ $(document).ready(function() {
 		if (time === 0) {
 
 			clearInterval(timerInt);
-			alert("Time's up!");
+			swal("Time's up!");
 			
 			document.getElementsByName("checkSet")[0].disabled = true;
 			document.getElementsByName("deal3")[0].disabled = true;
@@ -353,7 +355,7 @@ $(document).ready(function() {
 
 					if (set) {
 
-						alert ("There is a set on the board.")
+						swal ("There is a set on the board.")
 						console.log(dealtCards[i].divId, dealtCards[j].divId, dealtCards[k].divId)
 						return;
 						
