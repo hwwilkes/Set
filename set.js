@@ -8,6 +8,7 @@
 //8. Add instructions page
 //9. Add animations
 //10. Add Sets on board
+//11. Give message and disable check set button if all cards have been dealt and no sets remain on board.
 
 //Bugs:
 //2. Hide divs when allCards < 12	
@@ -102,6 +103,8 @@ $(document).ready(function() {
 
 		}
 
+		countSet();
+
 	}
 
 	//compares each attribute of selected cards to see if it is a set.
@@ -190,11 +193,13 @@ $(document).ready(function() {
 				$(cardDivs[selectedCardId2]).addClass("hidden").removeClass("show");
 				$(cardDivs[selectedCardId3]).addClass("hidden").removeClass("show");
 
+				countSet();
+
 			} 
 
 			if (allCardsLength === 0) {
 
-				document.getElementsByName("deal3")[0].disabled = true;
+				document.getElementsByName("dealCards")[0].disabled = true;
 
 			}
 
@@ -291,7 +296,7 @@ $(document).ready(function() {
 			swal("Time's up!");
 			
 			document.getElementsByName("checkSet")[0].disabled = true;
-			document.getElementsByName("deal3")[0].disabled = true;
+			document.getElementsByName("dealCards")[0].disabled = true;
 			$(".card").removeClass("selected");
 
 			$(".card").click(function() {
@@ -325,6 +330,39 @@ $(document).ready(function() {
 	}
 
 	// dealCards();	
+
+	//counts the number of sets on the board and updates the onscreen count.
+	function countSet() {
+
+		var dealtCardsLength = dealtCards.length;
+		var setNum = 0;
+
+		//check to see if there is a set on the board before dealing more cards
+		for (var i = 0; i < dealtCardsLength;i++) {
+
+			for (var j = i+1; j < dealtCardsLength;j++) {
+
+				for (var k = j+1; k < dealtCardsLength;k++) {
+
+					var set = compareCards(i,j,k);
+
+					if (set) {
+
+						setNum++;
+						//cheat mode
+						console.log(dealtCards[i].divId, dealtCards[j].divId, dealtCards[k].divId);
+						
+					}
+
+				}
+
+			}
+
+		}
+
+		document.getElementById("setNum").innerHTML = setNum;
+
+	}
 	
 	$("button[name='checkSet']").click(function() {
 
@@ -356,7 +394,7 @@ $(document).ready(function() {
 					if (set) {
 
 						swal ("There is a set on the board.")
-						console.log(dealtCards[i].divId, dealtCards[j].divId, dealtCards[k].divId)
+						///console.log(dealtCards[i].divId, dealtCards[j].divId, dealtCards[k].divId)
 						return;
 						
 					}
